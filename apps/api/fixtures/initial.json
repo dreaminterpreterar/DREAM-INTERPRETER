@@ -1,0 +1,38 @@
+[
+    {
+        "model": "api.Parameters", 
+        "pk": 1,  
+        "fields": {
+            "name": "base_url",
+            "description": "URL DE LA API- IA.",
+            "value": "default"
+        }
+    },
+    {
+        "model": "api.Parameters", 
+        "pk": 2,  
+        "fields": {
+            "name": "ai_model",
+            "description": "MODELO DE LA API - IA.",
+            "value": "default"
+        }
+    },
+    {
+        "model": "api.Parameters", 
+        "pk": 3,  
+        "fields": {
+            "name": "api_key",
+            "description": "KEY DE LA API - IA.",
+            "value": "default"
+        }
+    },
+    {
+        "model": "api.Parameters", 
+        "pk": 4,  
+        "fields": {
+            "name": "system_prompt",
+            "description": "PROMP PARA LA API - IA.",
+            "value": "default"
+        }
+    }
+]

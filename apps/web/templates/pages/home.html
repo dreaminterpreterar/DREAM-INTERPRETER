@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block title %}<title>Interpretador de sueños ✨</title>{% endblock %}
+
+{% block css %}<link rel="stylesheet" href="{% static "css/home.css" %}">{% endblock %}
+
+{% block content %}
+    <div class="container min-vh-100 d-flex justify-content-center align-items-center">
+        {% csrf_token %}
+        <div class="card text-center p-4 h-100" id="dreamCard" x-data="dreamInterpreter()">
+            <h1 class="fs-4 fw-bold text-dark">Interpretador de sueños ✨</h1>
+            <p class="fw-semibold" x-text="loading ? 'Estamos terminando de interpretar tu sueño y en unos segundos te lo mostraremos.' : 'Explora los misterios de tu subconsciente y descubre el significado oculto de tus sueños.'"></p>
+    
+            <div x-show="!loading && !interpretationResult && !oldInterpretations.length" x-cloak>
+                <textarea class="textarea form-control fw-medium fst-italic shadow-none mb-3" rows="5" placeholder="Describe tu sueño aquí con el mayor detalle posible..." x-model="dreamDescription" x-on:keydown.enter="loading = true; interpretDream(dreamDescription)"></textarea>
+                <div class="d-grid gap-2 d-md-block">
+                    <button type="button" class="btn btn-outline-dark fw-semibold" x-on:click="loading = true; getInterpretations()">Historial</button>
+                    <button type="button" class="btn btn-dark fw-semibold" x-on:click="loading = true; interpretDream(dreamDescription)">Interpretar</button>
+                </div>
+            </div>
+    
+            <template x-if="interpretationResult">
+                <div>
+                    <div class="accordion" id="twoItemAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button fw-semibold shadow-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false">Sueño</button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#twoItemAccordion">
+                                <div class="accordion-body">
+                                    <p x-text="dreamDescription" class="fst-italic fw-medium m-0"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button fw-semibold shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true">Interpretacion</button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse show" data-bs-parent="#twoItemAccordion">
+                                <div class="accordion-body">
+                                    <p x-text="interpretationResult" class="formatted-interpretation fst-italic fw-medium m-0 overflow-y-auto" style="max-height: 200px;"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button x-on:click="resetInterpreter()" type="button"class="btn btn-outline-dark fw-semibold mt-3">Regresar</button>
+                </div>
+            </template>
+
+            <template x-if="oldInterpretations.length > 0">
+                    <div id="carouselInterpretations" class="carousel slide w-100">
+                        <div class="carousel-inner">
+                            <template x-for="(item, index) in oldInterpretations" :key="index">
+                                <div class="carousel-item" :class="{ 'active': index === 0 }">
+                                    <div class="accordion" id="accordionInterpretations">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button fw-semibold shadow-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false">Sueño</button>
+                                            </h2>
+                                            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionInterpretations">
+                                                <div class="accordion-body">
+                                                    <p x-text="item.dream" class="fst-italic fw-medium m-0"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button fw-semibold shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true">Interpretacion</button>
+                                            </h2>
+                                            <div id="collapseTwo" class="accordion-collapse collapse show" data-bs-parent="#accordionInterpretations">
+                                                <div class="accordion-body">
+                                                    <p x-text="item.interpretation" class="formatted-interpretation fst-italic fw-medium m-0 overflow-y-auto" style="max-height: 200px;"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                     </div>
+                                </div>
+                            </template>
+                        </div>
+                        <div class="d-flex align-items-center mt-3" :class="{ 'justify-content-center': oldInterpretations.length <= 1, 'justify-content-between': oldInterpretations.length > 1 }">
+                            <template x-if="oldInterpretations.length > 1">
+                                <div>
+                                    <button class="btn btn-dark" type="button" data-bs-target="#carouselInterpretations" data-bs-slide="prev">
+                                        <i class="ti ti-arrow-left"></i>
+                                    </button>
+                                    <button class="btn btn-dark" type="button" data-bs-target="#carouselInterpretations" data-bs-slide="next">
+                                        <i class="ti ti-arrow-right"></i>
+                                    </button>
+                                </div>
+                            </template>
+                            <button type="button" class="btn btn-outline-dark fw-semibold" x-on:click="resetInterpreter()">Inicio</button>
+                        </div>
+                    </div>
+            </template>
+    
+            <template x-if="loading">
+                <div>
+                    <div class="spinner-border text-dark" role="status"></div>
+                </div>
+            </template>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}<script src="{% static "js/home.js" %}"></script>{% endblock %}

@@ -1,0 +1,38 @@
+body {
+    background-image: linear-gradient(to bottom, #000000, #1b0410, #28091f, #330931, #390d48);
+}
+
+.swal2-popup {
+    padding: 10px !important;
+}
+
+.swal2-icon {
+    margin-right: 20px !important;
+}
+
+.swal2-html-container {
+    margin: 0 !important;
+}
+
+.card {
+    max-width: 500px;
+}
+
+.textarea {
+    resize: none;
+}
+
+.textarea:focus {
+    outline: none;
+    border-color: #212529;
+}
+
+.spinner-border {
+    width: 2rem;
+    height: 2rem;
+}
+
+.formatted-interpretation {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
