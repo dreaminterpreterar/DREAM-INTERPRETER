@@ -1,6 +1,6 @@
 [
     {
-        "model": "api.Parameters", 
+        "model": "api.Parameter", 
         "pk": 1,  
         "fields": {
             "name": "base_url",
@@ -9,7 +9,7 @@
         }
     },
     {
-        "model": "api.Parameters", 
+        "model": "api.Parameter", 
         "pk": 2,  
         "fields": {
             "name": "ai_model",
@@ -18,7 +18,7 @@
         }
     },
     {
-        "model": "api.Parameters", 
+        "model": "api.Parameter", 
         "pk": 3,  
         "fields": {
             "name": "api_key",
@@ -27,7 +27,7 @@
         }
     },
     {
-        "model": "api.Parameters", 
+        "model": "api.Parameter", 
         "pk": 4,  
         "fields": {
             "name": "system_prompt",
