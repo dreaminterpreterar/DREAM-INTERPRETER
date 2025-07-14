@@ -17,7 +17,7 @@
                 <textarea class="textarea form-control fw-medium fst-italic shadow-none mb-3" rows="5" placeholder="Describe tu sueño aquí con el mayor detalle posible..." x-model="dreamDescription" x-on:keydown.enter="loading = true; interpretDream(dreamDescription)"></textarea>
                 <div class="d-grid gap-2 d-md-block">
                     <button type="button" class="btn btn-outline-dark fw-semibold" x-on:click="loading = true; getInterpretations()">Historial</button>
-                    <button type="button" class="btn btn-dark fw-semibold" x-on:click="loading = true; interpretDream(dreamDescription)">Interpretar</button>
+                    <button type="button" class="btn btn-dark fw-semibold" x-on:click="loading = true; openAdAndInterpretDream(dreamDescription)">Interpretar</button>
                 </div>
             </div>
     
